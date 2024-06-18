@@ -10,8 +10,9 @@ const config = {
   dbname: process.env.DBNAME as string,
   accessExpiry: process.env.ACCESS_TOKEN_EXPIRY as string,
   refreshExpiry: process.env.REFRESH_TOKEN_EXPIRY as string,
-  maxLoginAttempts: parseInt(process.env.Login_Attempt_Limit as string, 10),
-  bannedTime: parseInt(process.env.BAN_TIME as string, 10),
-};
+  //   maxLoginAttempts: parseInt(process.env.Login_Attempt_Limit as string, 10),
+  //   bannedTime: parseInt(process.env.BAN_TIME as string, 10),
+  // };
+}
 
 export default config;

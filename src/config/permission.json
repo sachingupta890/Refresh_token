@@ -1,0 +1,6 @@
+{
+  "/protected": ["auth"],
+  "/getAll": ["superadmin", "localadmin"],
+  "/delete": ["superadmin"],
+  "/update": ["superadmin"]
+}

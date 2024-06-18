@@ -7,12 +7,6 @@ import { JwtPayload } from "../types/type.js";
 
 const verifyJWT = async (req: any, res: Response, next: NextFunction) => {
   try {
-
-    const url = req.originalUrl.split("/")
-    const cleanSegments = url.filter((segment: any) => segment !== "");
-    const lastRoute = cleanSegments[cleanSegments.length - 1];
-
-    console.log(lastRoute)
     const token =
       req.cookies?.accessToken ||
       req.header("Authorization")?.replace("Bearer ", "");
@@ -41,7 +35,9 @@ const verifyJWT = async (req: any, res: Response, next: NextFunction) => {
     if (!user) {
       return failureResponse("Invalid access token", res, 401);
     }
-
+      if (user.role !== 'superadmin') {
+          return failureResponse("Protected route for superadmin only ", res, 403);
+    }
     req.user = user;
     next();
   } catch (err: any) {

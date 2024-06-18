@@ -7,12 +7,6 @@ import { JwtPayload } from "../types/type.js";
 
 const verifyJWT = async (req: any, res: Response, next: NextFunction) => {
   try {
-
-    const url = req.originalUrl.split("/")
-    const cleanSegments = url.filter((segment: any) => segment !== "");
-    const lastRoute = cleanSegments[cleanSegments.length - 1];
-
-    console.log(lastRoute)
     const token =
       req.cookies?.accessToken ||
       req.header("Authorization")?.replace("Bearer ", "");
@@ -40,10 +34,16 @@ const verifyJWT = async (req: any, res: Response, next: NextFunction) => {
 
     if (!user) {
       return failureResponse("Invalid access token", res, 401);
-    }
-
-    req.user = user;
-    next();
+      }
+      console.log("user role is ",user.role)
+    if (user.role === 'superadmin' || user.role === 'localadmin') {
+        req.user = user;
+        next();
+      }
+    else {
+        return failureResponse("Protected route for localAdmin",res,403)
+      }
+    
   } catch (err: any) {
     console.error("Error in verifyJWT middleware:", err);
     return res.status(500).json({

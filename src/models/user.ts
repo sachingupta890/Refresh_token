@@ -5,13 +5,12 @@ interface IUser extends Document {
   email: string;
   password: string;
   refreshToken?: string;
-  banUntil: any;
-    failedLoginAttempts: number;
     user?: any;
-    _id:any
+  _id: any;
+  role:string
 }
 
-const userSchema:Schema<IUser> = new Schema({
+const userModel:Schema<IUser> = new Schema({
   name: {
     type: String,
     required: [true, "Please enter the name"],
@@ -28,14 +27,13 @@ const userSchema:Schema<IUser> = new Schema({
   refreshToken: {
     type: String,
   },
-  banUntil: {
-    type: Date,
-    default: null,
-  },
-  failedLoginAttempts: {
-    type: Number,
-    default: 0,
-  },
+  role: {
+    type: String,
+    enum: ['user', 'localadmin', 'superadmin'],
+    default:'user'
+    
+  }
+
 });
 
-export const User = mongoose.model<IUser>('User', userSchema);
+export const User = mongoose.model<IUser>('User', userModel);

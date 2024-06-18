@@ -2,7 +2,8 @@
 export interface NewSignInRequestBody{
     name: string;
     email: string;
-    password: string;
+  password: string;
+  role:string
 }
 export interface NewlogInRequestBody {
   name: string;
@@ -13,6 +14,7 @@ export interface NewlogInRequestBody {
 export type JwtPayload  = {
   userId: string,
   email: string;
+  role: string;
 }
 export type JwtRefreshPayload = {
     userId: string;

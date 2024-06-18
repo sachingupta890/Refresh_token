@@ -1,8 +1,10 @@
 import express from "express"
+import cors from "cors"
 import cookieParser from "cookie-parser"
 import connect from "./db/dbConfig.js";
 import config from "./config/config.js";
 import indexRoutes from "./routes/index.js"
+
 
 
 const app = express();
@@ -16,6 +18,9 @@ app.get('/', (req, res) => {
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors({
+  origin: '*'
+}))
 
 app.use('/api/v1',indexRoutes)
 
